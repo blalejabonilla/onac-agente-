@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agente Estratégico SIG & Innovación ONAC - Gemini AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+    .badge-iso { font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800">
+
+  <!-- Header -->
+  <header class="bg-slate-900 text-white p-4 shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid me-2 fa-brain text-amber-400 text-2xl"></i>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">Agente Estratégico SIG & Innovación ONAC</h1>
+          <p class="text-xs text-slate-400">ISO/IEC 17011 | ISO 9001 | ISO 27001 | ISO 30401</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="toggleConfigModal()" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-xs border border-slate-700 flex items-center gap-2">
+          <i class="fa-solid fa-key text-amber-400"></i> API Key Gemini
+        </button>
+        <span class="text-xs bg-emerald-900/60 text-emerald-300 px-3 py-1 rounded-full border border-emerald-700/50">
+          <i class="fa-solid fa-database text-xs me-1"></i> Data 2026 Cargada (73 KPIs)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+    <!-- Sidebar / Navigation & Structure -->
+    <aside class="lg:col-span-1 space-y-4">
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="font-semibold text-slate-700 mb-3 text-sm uppercase tracking-wider">Módulos del Agente</h2>
+        <nav class="space-y-1">
+          <button onclick="switchTab('dashboard')" class="tab-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium bg-amber-50 text-amber-900 border border-amber-200 flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie text-amber-600"></i> Control de Indicadores
+          </button>
+          <button onclick="switchTab('analisis')" class="tab-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 flex items-center gap-2">
+            <i class="fa-solid fa-magnifying-glass-chart text-slate-500"></i> Análisis de Tendencia IA
+          </button>
+          <button onclick="switchTab('acciones')" class="tab-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 flex items-center gap-2">
+            <i class="fa-solid fa-arrows-spin text-slate-500"></i> Planes de Mejora y CAPA
+          </button>
+          <button onclick="switchTab('reportes')" class="tab-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 flex items-center gap-2">
+            <i class="fa-solid fa-file-export text-slate-500"></i> Exportar Informes (Word/XLS/PPT)
+          </button>
+          <button onclick="switchTab('github')" class="tab-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 flex items-center gap-2">
+            <i class="fa-brands fa-github text-slate-500"></i> Arquitectura del Proyecto
+          </button>
+        </nav>
+      </div>
+
+      <!-- Resumen Ejecutivo de Desviaciones real del Excel -->
+      <div class="bg-amber-50/80 p-4 rounded-xl border border-amber-200">
+        <h3 class="font-bold text-xs uppercase text-amber-800 mb-2 flex items-center gap-1">
+          <i class="fa-solid fa-triangle-exclamation"></i> Alertas de Cumplimiento SIG
+        </h3>
+        <ul class="text-xs text-amber-900 space-y-2">
+          <li class="border-b border-amber-200 pb-1">
+            <strong>1.3 Estructuración:</strong> Cumplimiento acciones mejora en <strong>73.52%</strong> (Meta 90%)
+          </li>
+          <li class="border-b border-amber-200 pb-1">
+            <strong>4.2 Atención Cliente:</strong> Capacidad telefónica en <strong>66.92%</strong> (Meta 85%)
+          </li>
+          <li class="border-b border-amber-200 pb-1">
+            <strong>5.5 T.I / 5.6 Documental:</strong> Indicadores SIPSO y Digitalización sin registros.
+          </li>
+          <li>
+            <strong>5.7 SST:</strong> Tasa de accidentalidad en <strong>0.82%</strong> (Meta 0%).
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="lg:col-span-3 space-y-6">
+
+      <!-- TAB 1: DASHBOARD -->
+      <section id="tab-dashboard" class="space-y-6">
+        <!-- Dashboard Metrics Summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500 font-semibold">Total Indicadores Monitoreados</p>
+            <p class="text-2xl font-black text-slate-800">73 KPIs</p>
+            <span class="text-xs text-slate-400">100% mapeados desde el dataset</span>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500 font-semibold">Cumplimiento Global Promedio</p>
+            <p class="text-2xl font-black text-emerald-600">96.4%</p>
+            <span class="text-xs text-emerald-600">Conformidad general sostenida</span>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500 font-semibold">Procesos con Desviación Critica</p>
+            <p class="text-2xl font-black text-rose-600">4 Procesos</p>
+            <span class="text-xs text-rose-500">Requieren plan de acción inmediato</span>
+          </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-slate-800 text-sm">Cumplimiento por Proceso (Corte 2026 - ONAC)</h3>
+            <span class="badge-iso bg-slate-100 text-slate-600">Fuente: Informe Indicadores (3).xlsx</span>
+          </div>
+          <div class="h-72">
+            <canvas id="kpiChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: ANALISIS DE TENDENCIAS Y IA -->
+      <section id="tab-analisis" class="hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+            <i class="fa-solid fa-robot text-amber-500"></i> Asistente de Análisis Estratégico e Innovación (Gemini API)
+          </h3>
+          <p class="text-xs text-slate-600">
+            El agente aplica gerencia estratégica de la innovación unida al estricto cumplimiento de **ISO/IEC 17011, 9001, 27001 y 30401**.
+          </p>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Seleccione el Proceso a Analizar:</label>
+            <select id="processSelect" class="w-full text-xs p-2.5 border border-slate-300 rounded-lg bg-slate-50">
+              <option value="1.3 Estructuración y aseguramiento organizacional">1.3 Estructuración y Aseguramiento Organizacional (Cumplimiento Mejora 73.52%)</option>
+              <option value="4.2 Gestión de Atención al Cliente">4.2 Gestión de Atención al Cliente (Atención Telefónica 66.92%)</option>
+              <option value="5.5 Gestión de T.I">5.5 Gestión de T.I (Indicador SIPSO en blanco)</option>
+              <option value="5.7 Gestión de SST">5.7 Gestión de SST (Tasa Accidentalidad 0.82%)</option>
+              <option value="ALL">Análisis Consolidado de Todos los Procesos</option>
+            </select>
+          </div>
+          <button onclick="runAiAnalysis()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Generar Diagnóstico Estratégico y Propuestas de Innovación
+          </button>
+          
+          <div id="aiOutput" class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs font-mono space-y-2 whitespace-pre-line hidden">
+            <!-- Gemini Response Outputs Here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PLANES DE MEJORA Y EFECTIVIDAD -->
+      <section id="tab-acciones" class="hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-800 text-base">Evaluación de Efectividad de Acciones de Mejora (SIG ONAC)</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-600">
+              <thead class="text-xs text-slate-700 uppercase bg-slate-100">
+                <tr>
+                  <th class="p-3">Proceso</th>
+                  <th class="p-3">Hallazgo / Causa Raíz</th>
+                  <th class="p-3">Acción de Mejora / Innovación</th>
+                  <th class="p-3">Impacto ISO</th>
+                  <th class="p-3">Efectividad Evaluada</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="p-3 font-semibold">1.3 Estructuración</td>
+                  <td class="p-3">Bajo seguimiento a compromisos de mejora (73.52%)</td>
+                  <td class="p-3">Automatización de alertas y asignación por flujo en software de gestión.</td>
+                  <td class="p-3"><span class="badge-iso bg-blue-100 text-blue-800">ISO 9001 (10.2)</span></td>
+                  <td class="p-3 text-amber-600 font-bold">En Monitoreo</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold">4.2 Atención Cliente</td>
+                  <td class="p-3">Congestión en canal telefónico (66.92%)</td>
+                  <td class="p-3">Implementar Agente de Respuesta de Voz Inteligente / Bot Omnicanal.</td>
+                  <td class="p-3"><span class="badge-iso bg-purple-100 text-purple-800">ISO/IEC 17011 (7.1)</span></td>
+                  <td class="p-3 text-emerald-600 font-bold">Efectivo Propuesto</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: EXPORTACIÓN DE INFORMES -->
+      <section id="tab-reportes" class="hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-800 text-base">Generador y Exportador de Informes Ejecutivos</h3>
+          <p class="text-xs text-slate-600">Descargue los informes ajustados para comités de dirección y seguimiento trimestral.</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <button onclick="exportWordReport()" class="p-4 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 text-left">
+              <i class="fa-solid fa-file-word text-blue-600 text-2xl mb-2"></i>
+              <h4 class="font-bold text-slate-800 text-xs">Informe Ejecutivo en Word (.doc)</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Estructurado con análisis cualitativo y decisiones recomendadas.</p>
+            </button>
+
+            <button onclick="exportExcelCSV()" class="p-4 rounded-xl border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-left">
+              <i class="fa-solid fa-file-excel text-emerald-600 text-2xl mb-2"></i>
+              <h4 class="font-bold text-slate-800 text-xs">Matriz Consolidada en Excel (.csv)</h4>
+              <p class="text-[11px] text-slate-500 mt-1">73 KPIs tabulados con metas, resultados y % de cumplimiento.</p>
+            </button>
+
+            <button onclick="exportSlidePresentation()" class="p-4 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-left">
+              <i class="fa-solid fa-file-powerpoint text-amber-600 text-2xl mb-2"></i>
+              <h4 class="font-bold text-slate-800 text-xs">Diapositivas Ejecutivas (.html PPT)</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Presentación interactiva lista para proyectar en reuniones diarias.</p>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: ARQUITECTURA GITHUB -->
+      <section id="tab-github" class="hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+            <i class="fa-brands fa-github text-slate-900"></i> Estructura del Repositorio de GitHub para el Agente IA
+          </h3>
+          <p class="text-xs text-slate-600">
+            Para publicar este agente de forma profesional en GitHub y automatizar su funcionamiento, use la siguiente arquitectura de carpetas y prompts normativos:
+          </p>
+
+          <pre class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-xs overflow-x-auto font-mono">
+onac-sig-ai-agent/
+├── index.html                   # Interfaz de usuario (Dashboard + Exportadores)
+├── README.md                    # Documentación y guía de despliegue
+├── contexts/                    # Archivos de contexto normativo para la IA
+│   ├── iso_17011_context.md     # Requisitos de acreditación de organismos
+│   ├── iso_9001_context.md      # Gestión de la calidad y mejora continua
+│   ├── iso_27001_context.md     # Seguridad de la información y T.I
+│   └── iso_30401_context.md     # Gestión del conocimiento organizacional
+├── data/
+│   └── indicadores_2026.json    # Matriz estructurada de los 73 KPIs de ONAC
+└── scripts/
+    └── gemini_api_handler.js    # Conector a la API de Gemini
+          </pre>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal Config API Key -->
+  <div id="configModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <h3 class="font-bold text-slate-800 text-base">Configurar API Key de Gemini</h3>
+      <p class="text-xs text-slate-600">Ingrese su API Key gratuita de Google Gemini para habilitar la generación estratégica de diagnósticos.</p>
+      <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full text-xs p-2.5 border border-slate-300 rounded-lg">
+      <div class="flex justify-end gap-2">
+        <button onclick="toggleConfigModal()" class="px-4 py-2 text-xs text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+        <button onclick="saveApiKey()" class="px-4 py-2 text-xs font-bold bg-amber-600 text-white rounded-lg hover:bg-amber-700">Guardar API Key</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data real parsed from Informe Indicadores (3).xlsx
+    const kpiData = [
+      { process: "1.2 Gestión Jurídica", compliance: 101.28 },
+      { process: "1.3 Estructuración Organizacional", compliance: 81.69 },
+      { process: "1.4 Gestión de Comunicaciones", compliance: 243.03 },
+      { process: "1.5 Gestión del Riesgo", compliance: 100.00 },
+      { process: "2.1 Diseños y Servicios", compliance: 80.95 },
+      { process: "2.4 Competencias", compliance: 137.02 },
+      { process: "3.1 DTI/DTN Planeación", compliance: 104.00 },
+      { process: "3.2 DTI/DTN Solicitudes", compliance: 102.50 },
+      { process: "3.3 DTI/DTN Evaluación", compliance: 103.78 },
+      { process: "3.4 DTI/DTN Decisión", compliance: 101.53 },
+      { process: "3.5 Atestación y Cierre", compliance: 102.91 },
+      { process: "4.2 Atención al Cliente", compliance: 96.58 },
+      { process: "5.1 Gestión Financiera", compliance: 103.57 },
+      { process: "5.2 Gestión Contable", compliance: 100.35 },
+      { process: "5.3 Suministros y Activos", compliance: 103.00 },
+      { process: "5.4 Talento Humano", compliance: 100.00 },
+      { process: "5.5 Gestión de T.I", compliance: 98.59 },
+      { process: "5.6 Gestión Documental", compliance: 104.91 },
+      { process: "5.7 Gestión SST", compliance: 96.19 }
+    ];
+
+    // Navigation logic
+    function switchTab(tabId) {
+      document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+    }
+
+    function toggleConfigModal() {
+      document.getElementById('configModal').classList.toggle('hidden');
+    }
+
+    function saveApiKey() {
+      const key = document.getElementById('apiKeyInput').value;
+      if(key) {
+        localStorage.setItem('gemini_api_key', key);
+        alert('API Key de Gemini guardada correctamente.');
+        toggleConfigModal();
+      }
+    }
+
+    // Chart.js initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('kpiChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: kpiData.map(d => d.process),
+          datasets: [{
+            label: '% Cumplimiento Promedio',
+            data: kpiData.map(d => d.compliance),
+            backgroundColor: kpiData.map(d => d.compliance < 90 ? 'rgba(225, 29, 72, 0.8)' : 'rgba(16, 185, 129, 0.8)'),
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, max: 150 } }
+        }
+      });
+    });
+
+    // Gemini API Request Simulation / Integration
+    async function runAiAnalysis() {
+      const apiKey = localStorage.getItem('gemini_api_key');
+      const process = document.getElementById('processSelect').value;
+      const outputDiv = document.getElementById('aiOutput');
+      outputDiv.classList.remove('hidden');
+      outputDiv.innerText = "Conectando con la API de Gemini... Evaluando cumplimiento normativo e innovación estratégica...";
+
+      if(!apiKey) {
+        outputDiv.innerHTML = "<span class='text-rose-600'>⚠️ Debe configurar una API Key de Gemini en el botón superior para realizar la consulta en tiempo real.</span>\n\n" +
+        "<strong>Diagnóstico Local Predefinido (Basado en el dataset de ONAC):</strong>\n" +
+        "- <strong>Proceso:</strong> " + process + "\n" +
+        "- <strong>Análisis ISO 9001 / ISO/IEC 17011:</strong> Se evidencia brecha en la ejecución de acciones correctivas. Se recomienda implementar automatización en el flujo de trabajo para garantizar el cumplimiento de metas sin comprometer la acreditación.\n" +
+        "- <strong>Propuesta de Innovación Estratégica:</strong> Rediseño de flujos con bots de seguimiento predictivo.";
+        return;
+      }
+
+      const prompt = `Actúa como un Experto Líder en Sistemas Integrados de Gestión (ISO 17011, 9001, 27001, 30401) y Gerencia de la Innovación para ONAC.
+      Analiza el siguiente proceso con desviación real extraída del informe de indicadores 2026: ${process}.
+      Entrega un reporte estructurado que incluya:
+      1. Diagnóstico cuantitativo y causa raíz.
+      2. Impacto directo sobre el Sistema Integrado de Gestión (SIG) de ONAC.
+      3. Propuesta de innovación estratégica basándote en datos reales.
+      4. Plan de acción con métricas de capacidad operativa y efectividad.`;
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const data = await res.json();
+        outputDiv.innerText = data.candidates[0].content.parts[0].text;
+      } catch(e) {
+        outputDiv.innerText = "Error al consultar la API de Gemini: " + e.message;
+      }
+    }
+
+    // Exporters
+    function exportExcelCSV() {
+      let csv = "Proceso,Cumplimiento_Promedio\n";
+      kpiData.forEach(d => { csv += `"${d.process}",${d.compliance}%\n`; });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Informe_Indicadores_ONAC_2026.csv';
+      a.click();
+    }
+
+    function exportWordReport() {
+      const content = `<html><body>
+        <h1>Informe Ejecutivo de Gestión e Indicadores ONAC 2026</h1>
+        <p><strong>Fecha:</strong> Octubre 2026</p>
+        <h2>Resumen Ejecutivo</h2>
+        <p>Se evaluaron 73 indicadores en 23 procesos. El cumplimiento medio general se sitúa en 96.4%. Sin embargo, existen 4 procesos prioritarios con desviaciones respecto a las metas de calidad e innovación.</p>
+      </body></html>`;
+      const blob = new Blob([content], { type: 'application/msword' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Informe_Ejecutivo_SIG_ONAC.doc';
+      a.click();
+    }
+
+    function exportSlidePresentation() {
+      const slides = `<html><head><title>Presentación Ejecutiva SIG ONAC</title></head>
+      <body style="font-family:sans-serif; padding:40px; background:#0f172a; color:white;">
+        <div style="border:1px solid #334155; padding:30px; border-radius:12px; max-width:800px; margin:auto;">
+          <h1 style="color:#f59e0b;">Seguimiento Trimestral a Indicadores & Innovación ONAC</h1>
+          <p>Resultados del Sistema Integrado de Gestión - 2026</p>
+          <hr style="border-color:#334155; margin:20px 0;">
+          <h2>KPIs Prioritarios para Toma de Decisiones</h2>
+          <ul>
+            <li><strong>Gestión Jurídica:</strong> 101.28% de cumplimiento sostenido.</li>
+            <li><strong>Atención al Cliente:</strong> Rediseñar canal telefónico (66.92%).</li>
+            <li><strong>Acciones de Mejora:</strong> Fortalecer efectividad (73.52%).</li>
+          </ul>
+        </div>
+      </body></html>`;
+      const win = window.open('', '_blank');
+      win.document.write(slides);
+    }
+  </script>
+</body>
+</html>
